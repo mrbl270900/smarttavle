@@ -35,6 +35,7 @@ myfont = pygame.font.SysFont('Helvetica', 15)
 joketext = myfont.render("Todays joke:", False, (0, 0, 0))
 thejoke = myfont.render(joke, False, (0, 0, 0))
 
+weathertext = myfont.render("Weather in Copenhagen", False, (0, 0, 0))
 theweather = myfont.render(weather, False, (0, 0, 0))
 screen = pygame.display.set_mode([1000, 1000])
 running = True
@@ -43,6 +44,7 @@ while running:
     screen.fill((255,255,255))
     screen.blit(joketext,(5,0))
     screen.blit(thejoke,(5,20))
+    screen.blit(weathertext,(5,45))
     screen.blit(theweather,(5,65))
     pygame.display.flip()
 
