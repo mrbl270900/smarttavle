@@ -16,8 +16,7 @@ def chekJoke(data_joke):
 def getJoke():
     response = urlopen("https://v2.jokeapi.dev/joke/Any")
     data_joke = json.loads(response.read())
-    joke = ""
-    joke = chekJoke(data_joke)
+    joke = str(chekJoke(data_joke))
     while(len(joke)>100):
         response = urlopen("https://v2.jokeapi.dev/joke/Any")
         data_joke = json.loads(response.read())
@@ -37,6 +36,13 @@ def getWeather():
     data_weather = raw_api_dict
     weather = data_weather.get("consolidated_weather")[0].get("weather_state_name")
     temp = str(data_weather.get("consolidated_weather")[0].get("the_temp"))
+    tempHolder = ""
+    for x in temp:
+        tempHolder = tempHolder + x
+        if(len(tempHolder)>4):
+            temp = tempHolder
+            break
+
     return weather + " and " + temp + " degrees out side";
 
 pygame.init()
