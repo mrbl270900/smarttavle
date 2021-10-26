@@ -5,10 +5,22 @@ from urllib.request import urlopen
 import pygame
 from datetime import datetime
 
+def getNews():
+    response = urlopen("https://newsapi.org/v2/everything?q=Denmark&apiKey=b23f98a3a2ee49a1b35b8840adf63a72")
+    data_news = json.loads(response.read())
+    return data_news;
+
+def getArticel(data_news, x):
+    return str(data_news["articles"][x]["title"])
+
+def getArticeltext(data_news, x):
+
+    return str(data_news["articles"][x]["description"])
+
 def chekJoke(data_joke):
     if "joke" in data_joke:
         joke = data_joke["joke"]
-    else: # else put botehe the setup an delivery in the joke varibul
+    else:
         joke = data_joke["setup"]
         joke = joke + " " + data_joke["delivery"]
         return joke
@@ -57,7 +69,12 @@ thejoke = myfont.render(getJoke(), False, (0, 0, 0))
 weathertext = myfont.render("Weather in Copenhagen", False, (0, 0, 0))
 theweather = myfont.render(getWeather(), False, (0, 0, 0))
 
-screen = pygame.display.set_mode([800, 200])
+news_data = getNews()
+newsHeadline = myfont.render(getArticel(news_data,0), False, (0, 0, 0))
+newsText = myfont.render(getArticeltext(news_data,0), False, (0, 0, 0))
+
+
+screen = pygame.display.set_mode([1000, 300])
 running = True
 while running:
     time = timefont.render(getTime(), False, (0,0,0))
@@ -68,6 +85,8 @@ while running:
     for x in range(24):
         if(getTime() == str(x) + ":00:00"):
             theweather = myfont.render(getWeather(), False, (0, 0, 0))
+            news_data = getNews()
+            newsHeadline = myfont.render(getArticel(news_data,0), False, (0, 0, 0))
 
     screen.fill((255,255,255))
 
@@ -76,6 +95,8 @@ while running:
     screen.blit(thejoke,(5,70))
     screen.blit(weathertext,(5,95))
     screen.blit(theweather,(5,115))
+    screen.blit(newsHeadline,(5,135))
+    screen.blit(newsText,(5,155))
     pygame.display.flip()
 
 
