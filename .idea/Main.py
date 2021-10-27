@@ -1,5 +1,4 @@
 import json
-import requests
 import urllib.request
 from urllib.request import urlopen
 import pygame
@@ -129,7 +128,7 @@ while running:
     screen.blit(newsText3,(5,200))
     pygame.display.flip()
 
-    pygame.time.delay(100)
+    pygame.time.delay(500)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
